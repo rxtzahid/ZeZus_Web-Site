@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
-import { FaUser, FaHistory, FaWallet, FaCreditCard, FaCog, FaSignOutAlt, FaMapMarkerAlt, FaCalendarAlt, FaClock, FaStar, FaPhone, FaEnvelope, FaEdit } from 'react-icons/fa';
+import { FaUser, FaHistory, FaWallet, FaCreditCard, FaCog, FaSignOutAlt, FaCalendarAlt, FaClock, FaStar, FaPhone, FaEnvelope, FaEdit } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import Map from '../components/Map';
-import PlacesAutocomplete from '../components/PlacesAutocomplete';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('profile');
-  const [pickup, setPickup] = useState(null);
-  const [dropoff, setDropoff] = useState(null);
-  const [fare, setFare] = useState(null);
 
   const user = {
     name: "zahid ",
@@ -25,15 +20,6 @@ const Dashboard = () => {
     { id: 2, from: "Dhanmondi", to: "Mirpur", date: "2024-03-14", time: "06:45 PM", fare: 220, status: "Completed", driver: "Rafiq" },
     { id: 3, from: "Banani", to: "Airport", date: "2024-03-13", time: "02:15 PM", fare: 350, status: "Completed", driver: "Shahin" }
   ];
-
-  const calculateFare = () => {
-    if (pickup && dropoff) {
-      // Mock fare calculation - in real app, use Google Maps distance
-      const distance = Math.floor(Math.random() * 15) + 5;
-      const calculatedFare = distance * 25;
-      setFare(calculatedFare);
-    }
-  };
 
   const tabs = [
     { id: 'profile', name: 'Profile', icon: <FaUser /> },
@@ -215,20 +201,6 @@ const Dashboard = () => {
               </div>
             </div>
           )}
-        </div>
-
-        {/* Quick Ride Section with Map */}
-        <div className="mt-8 bg-white rounded-2xl shadow-lg p-6">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">Quick Ride</h2>
-          <div className="grid lg:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <PlacesAutocomplete onSelect={setPickup} placeholder="Enter pickup location" label="Pickup Location" />
-              <PlacesAutocomplete onSelect={setDropoff} placeholder="Enter dropoff location" label="Dropoff Location" />
-              <button onClick={calculateFare} className="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition">Calculate Fare</button>
-              {fare && <div className="bg-purple-50 rounded-lg p-4 text-center"><p className="text-gray-600">Estimated Fare</p><p className="text-2xl font-bold text-purple-600">৳{fare}</p><button className="mt-2 bg-purple-600 text-white px-4 py-2 rounded-lg">Book Now</button></div>}
-            </div>
-            <div><Map pickup={pickup} dropoff={dropoff} /></div>
-          </div>
         </div>
       </div>
     </div>
